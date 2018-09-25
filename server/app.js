@@ -6,9 +6,15 @@ httpServer.createServer(function(req, res){
 }).listen(1234) */
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
+const mongoose = require('mongoose')
 
 const schema1 = require('./schema/schema')
 
+mongoose.connect("mongodb://localhost:27017/friendsnew")
+
+ mongoose.connection.once('open', ()=>{
+     console.log("connected to mongodb!!!!")
+ })
 
 const app = express()
 
@@ -16,6 +22,10 @@ const app = express()
     console.log("Hello from express");
 })
  */
+
+ 
+
+
 
  app.use('/graphql', graphqlHTTP({
      //schema will be called here

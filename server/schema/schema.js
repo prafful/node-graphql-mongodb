@@ -1,5 +1,7 @@
 const graphql = require('graphql')
 const lodash = require('lodash')
+const Friend = require('../mongoosemodels/friend')
+const Location = require('../mongoosemodels/location')
 
 var friends=[
     {id:"1", name:"Ola", age:2, locationid:'1' },
@@ -108,10 +110,35 @@ const RootQuery = new GraphQLObjectType(
     }
 )
 
+const mutation = new GraphQLObjectType(
+    {
+        name:'mutation',
+        fields:{
+            addFriend:{
+                type:FriendType,
+                args:{
+                    name:{type:GraphQLString},
+                    age:{type:GraphQLInt},
+                    locationid:{type:GraphQLString}
+                },
+                resolve(parent, args){
+                    //create instance of friend model
+                    let frn = new Friend({
+                        name:args.name,
+                        age:args.age,
+                        locationid:args.locationid
+                    })
+                    return frn.save()
+                }
+            }
+        }
+    }
+)
 
 module.exports = new GraphQLSchema(
     {
-        query:RootQuery
+        query:RootQuery,
+        mutation:mutation   
     }
 )
 
