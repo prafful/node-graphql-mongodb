@@ -3,7 +3,7 @@ const lodash = require('lodash')
 const Friend = require('../mongoosemodels/friend')
 const Location = require('../mongoosemodels/location')
 
-var friends=[
+/* var friends=[
     {id:"1", name:"Ola", age:2, locationid:'1' },
     {id:"2", name:"Uber", age:4, locationid:'1' },
     {id:"3", name:"Swiggy", age:3, locationid:'1' },
@@ -17,7 +17,7 @@ var locationname=[
     {city:"Delhi", id:'4'},
     {city:"Kochi", id:'5'}
 
-]
+] */
 
 const {
     GraphQLObjectType, 
@@ -42,9 +42,10 @@ const FriendType = new GraphQLObjectType(
                         //which location resolves 
                         //to which friend for the given id
                         console.log(parent);
-                        return lodash
+                        /* return lodash
                             .find(locationname, 
-                                {id:parent.locationid})
+                                {id:parent.locationid}) */
+                        return Location.findById(parent.locationid)
 
                     }
                 }
@@ -63,9 +64,10 @@ const LocationType = new GraphQLObjectType(
                 friends:{
                     type: new GraphQLList(FriendType),
                     resolve(parent, args){
-                        return lodash
+                        /* return lodash
                                 .filter(friends,
-                                    {locationid:parent.id})
+                                    {locationid:parent.id}) */
+                            return Friend.find({locationid:parent.id})
                     }
                 }
             }
@@ -84,26 +86,30 @@ const RootQuery = new GraphQLObjectType(
                 resolve(parent, args){
                     console.log(typeof(args.id));
                     //code to get data from database
-                    return lodash.find(friends, {id:args.id})
+                    // return lodash.find(friends, {id:args.id})
+                    return Friend.findById(args.id)
                 }
             },
             location:{
                 type:LocationType,
                 args:{id:{type:GraphQLID}},
                 resolve(parent,args){
-                    return lodash.find(locationname, {id:args.id})
+                    // return lodash.find(locationname, {id:args.id})
+                    return Location.findById(args.id)
                 }
             },
             friends:{
                 type:new GraphQLList(FriendType),
                 resolve(parent,args){
-                    return friends
+                    // return friends
+                    return Friend.find({})
                 }
             },
             locations:{
                 type:new GraphQLList(LocationType),
                 resolve(parent, args){
-                    return locationname
+                    // return locationname
+                    return Location.find({})
                 }
             }
         }
@@ -129,6 +135,18 @@ const mutation = new GraphQLObjectType(
                         locationid:args.locationid
                     })
                     return frn.save()
+                }
+            },
+            addLocation:{
+                type:LocationType,
+                args:{
+                    city:{type:GraphQLString}
+                },
+                resolve(parent, args){
+                    let loc = new Location({
+                        city: args.city
+                    })
+                    return loc.save()
                 }
             }
         }
