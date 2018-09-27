@@ -5,8 +5,8 @@ class Friend extends React.Component {
     render() { 
         return ( 
                 <div>
-                    <h1>Hello from React: {this.props.children}</h1>
-                    <h4>is from {this.props.location}</h4>
+                    <h2>Hello from React: {this.props.children}</h2>
+                    <h3>is from {this.props.location}</h3>
                 </div> 
                     );
     }

@@ -1,0 +1,29 @@
+{
+    "friends":[
+        {
+            "id":1,
+            "name":"Umi",
+            "location":"Chennai"
+        },
+        {
+            "id":1,
+            "name":"Umi",
+            "location":"Chennai"
+        },
+        {
+            "id":2,
+            "name":"Oka",
+            "location":"Chennai"
+        },
+        {
+            "id":3,
+            "name":"Bua",
+            "location":"Kochi"
+        },
+        {
+            "id":4,
+            "name":"Oma",
+            "location":"Bengaluru"
+        }
+    ]
+}
