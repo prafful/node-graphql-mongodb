@@ -43,7 +43,17 @@ class RemoteComponent extends React.Component {
             <div>
                 I will get the data from REST API using AXIOS.
                 <br></br>
-                {displayData}
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {displayData}
+                    </tbody>    
+                </table>
             </div>
         );
     }
