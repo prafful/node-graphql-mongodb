@@ -7,6 +7,7 @@ httpServer.createServer(function(req, res){
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const schema1 = require('./schema/schema')
 
@@ -16,23 +17,20 @@ mongoose.connect("mongodb://localhost:27017/friendsnew")
      console.log("connected to mongodb!!!!")
  })
 
-const app = express()
+ const app = express()
+
+ app.use(cors())
 
 /* app.listen(1234, function(){
     console.log("Hello from express");
 })
  */
 
- 
-
-
-
  app.use('/graphql', graphqlHTTP({
      //schema will be called here
      schema:schema1,
      graphiql:true
  }))
-
 
  app.listen(1234, ()=>{
      console.log("hello from express");

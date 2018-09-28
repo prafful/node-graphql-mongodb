@@ -1,6 +1,17 @@
 import React from 'react';
 import City from "./childcomponent/City";
 
+import { gql } from "apollo-boost";
+import { graphql } from "react-apollo";
+
+const locationQuery = gql`
+                            {
+                                locations{
+                                city
+                                }
+                            }
+`
+
 class Location extends React.Component {
     constructor(props){
        super(props)
@@ -29,7 +40,23 @@ class Location extends React.Component {
         )
     }
 
+    displayLocations(){
+        var data = this.props.data
+        if(data.loading){
+            return(<div>Loading Locations...</div>)
+        }else{
+            return this.props.data.locations.map((l)=>{
+                return(
+                    <li>{l.city}</li>
+                )
+            })
+        }
+
+    }
+
     render() { 
+
+        console.log(this.props)
         return (  
             <div>
                 
@@ -37,9 +64,13 @@ class Location extends React.Component {
                 <br></br>
                 <button onClick={this.addFriend}>Add Friend</button>
                 <button onClick={this.removeFriend}>Remove Friend</button>
+                <br></br>
+                List of cities from graphql server:
+                {this.displayLocations()}
+                <br></br>
             </div>
         );
     }
 }
  
-export default Location;
+export default   graphql(locationQuery)(Location);
