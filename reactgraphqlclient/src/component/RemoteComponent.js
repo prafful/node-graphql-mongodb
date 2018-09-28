@@ -32,6 +32,7 @@ class RemoteComponent extends React.Component {
         return(
                 <DisplayFriend 
                     key={frn.id}
+                    id={frn.id}
                     name={frn.name}
                     location={frn.location}
                 />
@@ -48,6 +49,7 @@ class RemoteComponent extends React.Component {
                         <tr>
                             <th>Name</th>
                             <th>Location</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
