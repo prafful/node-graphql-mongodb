@@ -30,8 +30,6 @@ ReactDOM.render(
                 <div>
                     <h1>Friends</h1>   
                     <Friend location="Chennai">Omi</Friend>
-                    <Friend location="Pune">Uma</Friend>
-                    <Friend location="Kochi">Teri</Friend>
                 </div>
                
     </div>
